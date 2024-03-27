@@ -35,12 +35,25 @@ public class MemberAddServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		// get요청은 소스에 않고, tomcat의 server.xml에 해야함
 		// 파라미터를 꺼내기 전에 해야함
 		// 이 설정을 안해주면 한글이 깨져서 저장됨
 		// 이 설정을 추가해줄 것
 		req.setCharacterEncoding("UTF-8");
 		
 		Connection conn = null;
+		/*
+		 * Statement
+		 *  - 질의할 때마다 sql을 컴파일한다.
+		 *  - 입력 매개변수가 여러 개 필요할 때 문자열 결합연산자인 +를 이용해서 해야한다.
+		 *  - 전송 직전에 sql문을 입력받고, 컴파일 후, 서버로 전송
+		 *  
+		 * PreparedStatement
+		 *  - sql문을 미리 입력하여 컴파일한 상태에서 객체를 받는다.
+		 *  - 만약에 sql문 구조가 변경되지 않고, 파라미터값만 바뀌는 경우 Statement보다 훨씬 빠르다.
+		 *  - 입력 매개변수가 여러 개 필요할 때 ?로 sql의 피라미터를 표시하고, 나중에 전달하므로 편하다.
+		 *  - Statement < PreparedStatement 를 사용한다. 
+		 * */
 		PreparedStatement stmt = null;
 
 		try {
