@@ -21,26 +21,27 @@ public class MemberUpdateServlet extends HttpServlet{
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
-		
 		try {
 			Class.forName(this.getInitParameter("driver"));
 			conn = DriverManager.getConnection(
-					this.getInitParameter("url"),
-					this.getInitParameter("username"),
-					this.getInitParameter("password")
+						this.getInitParameter("url"),
+						this.getInitParameter("username"),
+						this.getInitParameter("password")
 					);
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(
 					"SELECT mno,email,mname,cre_date FROM members" +
 					" WHERE mno=" + req.getParameter("no")
 					);
-			
-			// mno 값은 unique 하므로 결과는 1개가 나오므로 while문은 필요없다.
-			// ResultSet의 내부는 row를 가리키는 Cursor가 존재하는데
-			// 처음에는 1번째 행 이전을 가리키고 있다.
-			// 그러므로 rs.next() 를 해야 1번째 행을 가리키고 값을 꺼낼 수가 있다.
+			/*
+			 mno값은 unique하므로 결과는 1개가 나오므로 while문은 필요없다.
+			 ResultSet의 내부에는 row를 가리키는 Cursor가 존재하는데
+			 처음에는 1번째 행 이전을 가리키고 있다.
+			 그러므로 rs.next()를 해야 1번째 행을 가리키고 값을 꺼낼 수가 있다.
+			*/
+
 			rs.next();
-			
+
 			resp.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = resp.getWriter();
 			out.println("<html><head><title>회원정보</title></head>");
@@ -59,41 +60,41 @@ public class MemberUpdateServlet extends HttpServlet{
 			out.println("</form>");
 
 			out.println("</body></html>");
-		}catch(Exception e){
+
+		}catch(Exception e) {
 			throw new ServletException(e);
 		}finally {
 			try {if(rs!=null) rs.close();} catch(Exception e) {}
 			try {if(stmt!=null) stmt.close();} catch(Exception e) {}
-			try {if(conn!=null) conn.close();} catch(Exception e) {}
+			try {if(conn!=null) conn.close();} catch(Exception e) {}			
 		}
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// 한글이 깨지지 않기 위해 값을 꺼내기 전에 설정
 		req.setCharacterEncoding("UTF-8");
-		
+
 		Connection conn = null;
 		PreparedStatement stmt = null;
-		
 		try {
 			Class.forName(this.getInitParameter("driver"));
 			conn = DriverManager.getConnection(
-					this.getInitParameter("url"),
-					this.getInitParameter("username"),
-					this.getInitParameter("password")
+						this.getInitParameter("url"),
+						this.getInitParameter("username"),
+						this.getInitParameter("password")
 					);
-			
 			stmt = conn.prepareStatement(
-						"UPDATE mambers SET email=?, mname=?, mod_date=NOW()"
+						"UPDATE members SET email=?, mname=?, mod_date=NOW()"
 					+ " WHERE mno=?"
 					);
-			stmt.setString(1, req.getParameter("email"));
-			stmt.setString(2, req.getParameter("name"));
-			stmt.setInt(3, Integer.parseInt(req.getParameter("no")));
+			stmt.setString(1,  req.getParameter("email"));
+			stmt.setString(2,  req.getParameter("name"));
+			stmt.setInt(3,  Integer.parseInt(req.getParameter("no")));
 			stmt.executeUpdate();
-			
+
 			resp.sendRedirect("list");
-			
+
 		}catch(Exception e) {
 			throw new ServletException(e);
 		}finally {
