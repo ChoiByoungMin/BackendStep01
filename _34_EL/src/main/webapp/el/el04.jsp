@@ -44,7 +44,7 @@ pre {
 <%
 pageContext.setAttribute("ne", "오호라!");
 %>
-${ne}
+
 <p><a href="el03.jsp">[이전]</a></p>
 </body>
 </html>
