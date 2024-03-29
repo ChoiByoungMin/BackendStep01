@@ -39,10 +39,10 @@ public class LoginServlet extends HttpServlet{
 			stmt = conn.prepareStatement(
 					"SELECT mname, email FROM members WHERE email=? AND pwd=?"
 					);
-			stmt.setString(1, req.getParameter("url"));
+			stmt.setString(1, req.getParameter("email"));
 			stmt.setString(2, req.getParameter("password"));
 			rs = stmt.executeQuery();
-			
+			// 회원이 존재하면
 			if(rs.next()) {
 				Member member = new Member()
 									.setEmail(rs.getString("email"))
@@ -51,7 +51,7 @@ public class LoginServlet extends HttpServlet{
 				HttpSession session = req.getSession();
 				session.setAttribute("member", member);
 				
-				resp.sendRedirect("./member/list");
+				resp.sendRedirect("../member/list");
 				
 			}else {
 				RequestDispatcher rd = req.getRequestDispatcher("/auth/LoginFail.jsp");
