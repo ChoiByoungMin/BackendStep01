@@ -8,11 +8,12 @@
              class="spms.vo.Member"/>
 
 <div style="background-color:#00008b;color:white;height:20px;padding:5px;">
-	SPMS(simple Project Management System)
+	SPMS(Simple Project Management System)
 	
 	<% if(member.getEmail() != null) { %>
+	
 	<span style="float:right"><%=member.getName() %>
-		<a style="color:white;" href="<%=request.getContextPath()  %>/auth/logout">로그아웃</a>
+		<a style="color:white;" href="<%=request.getContextPath() %>/auth/logout">로그아웃</a>
 	</span>
 	
 	<% } %>

@@ -23,7 +23,7 @@
 	 -->
 	<jsp:useBean id="members"
 	             scope="request"
-	             class=java.util.ArrayList"
+	             class="java.util.ArrayList"
 	             type="java.util.List<spms.vo.Member>"/>
 	<%
 		//List<Member> members = (List<Member>)request.getAttribute("members");
