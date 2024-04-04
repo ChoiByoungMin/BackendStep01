@@ -12,7 +12,6 @@ public class MemberUpdateController implements Controller {
 	public MemberUpdateController setMemberDao(MemberDao memberDao) {
 		this.memberDao = memberDao;
 		return this;
-		
 	}
 	
 	@Override
@@ -34,15 +33,3 @@ public class MemberUpdateController implements Controller {
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-

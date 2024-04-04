@@ -11,16 +11,17 @@ public class MemberDeleteController implements Controller {
 	public MemberDeleteController setMemberDao(MemberDao memberDao) {
 		this.memberDao = memberDao;
 		return this;
-		
 	}
 	
-  @Override
-  public String execute(Map<String, Object> model) throws Exception {
-    //MemberDao memberDao = (MemberDao)model.get("memberDao");
-    
-    Integer no = (Integer)model.get("no");
-    memberDao.delete(no);
-    
-    return "redirect:list.do";
-  }
+	@Override
+	public String execute(Map<String, Object> model) throws Exception {
+		System.out.println("MemberDeleteController::execute() - get 요청");
+		
+		//MemberDao memberDao = (MemberDao) model.get("memberDao");
+
+		Integer no = (Integer) model.get("no");
+		memberDao.delete(no);
+
+		return "redirect:list.do";
+	}
 }
