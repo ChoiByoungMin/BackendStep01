@@ -9,7 +9,7 @@ WHERE sname ='관우'
 
 SELECT sno, sname, avr
 FROM student
-WHERE avr = (SELECT avr
+WHERE avr > (SELECT avr
             FROM student
             WHERE sname ='관우');
 
@@ -21,7 +21,7 @@ WHERE syear = (SELECT syear
                 WHERE sname = '관우')
     AND avr = (SELECT avr
                 FROM student
-                WHERE sname = '사마감')
+                WHERE sname = '사마감');
 
 3) 관우보다 일반 화학과목의 학점이 더 낮은 학생의 명단을 학점과 검색하세요
 SELECT result

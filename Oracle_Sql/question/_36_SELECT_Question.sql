@@ -6,21 +6,19 @@ WHERE major='화학';
 
 SELECT *
 FROM student
-WHERE major = '화학'
-AND avr IN (
+WHERE avr IN (
     SELECT avr
     FROM student
     WHERE major = '화학'
     GROUP BY avr
     HAVING COUNT(*) > 1
-);
+    );
 
 
 2) 화학과 교수와 부임일이 같은 직원을 검색하세요
 SELECT *
 FROM professor
-WHERE section = '화학'
-AND hiredate IN (
+WHERE hiredate IN (
     SELECT hiredate
     FROM professor
     WHERE section = '화학'
@@ -33,8 +31,7 @@ AND hiredate IN (
 
 SELECT *
 FROM student
-WHERE major = '화학'
-AND avr IN (
+WHERE avr IN (
     SELECT avr
     FROM student
     WHERE major = '화학'
